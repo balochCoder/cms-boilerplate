@@ -44,7 +44,7 @@ class LoginController extends Controller
             'email'=>'required|email',
             'password'=>'required',
         ]);
-       $authenticate = auth()->attempt($request->only('email','password'));
+       $authenticate = auth()->attempt($request->only('email','password'),$request->filled('remember'));
        if (!$authenticate){
            return back()->with('message',"Invalid user credentials");
        }
