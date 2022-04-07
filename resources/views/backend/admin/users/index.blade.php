@@ -56,7 +56,9 @@
                                             <th>Email</th>
                                             <th>Role</th>
                                             <th>Created At</th>
-                                            <th>Actions</th>
+
+                                           <th>Actions</th>
+                                          
                                         </tr>
                                     </thead>
                                     <tbody>

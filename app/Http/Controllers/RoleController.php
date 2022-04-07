@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
@@ -40,8 +41,17 @@ class RoleController extends Controller
                     return date('d-M-Y', strtotime($row->created_at));
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('roles.edit', $row->id) . '"><i title="Edit" class="fas fa-edit font-size-18"></i></a>';
-                    $btn .= ' <a href="javascript:void(0);" class="text-danger remove" data-id="' . $row->id . '"><input type="hidden" value="' . $row->id . '"/><i title="Delete" class="fas fa-trash-alt font-size-18"></i></a>';
+                    $btn = '';
+                    if (Auth::user()->hasPermissionTo('roles-edit')) {
+                        $btn = '<a href="' . route('roles.edit', $row->id) . '"><i title="Edit" class="fas fa-edit font-size-18"></i></a>';
+                    }
+
+                    if (Auth::user()->hasPermissionTo('roles-delete')) {
+                        $btn .= ' <a href="javascript:void(0);" class="text-danger remove" data-id="' . $row->id . '"><input type="hidden" value="' . $row->id . '"/><i title="Delete" class="fas fa-trash-alt font-size-18"></i></a>';
+                    }
+
+
+
                     return $btn;
                 })
                 ->rawColumns(['name', 'action', 'created_at'])
@@ -73,7 +83,6 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'permission' => 'required',
         ]);
 
         try {
@@ -133,7 +142,7 @@ class RoleController extends Controller
 
         $this->validate($request, [
             'name' => 'required|unique:roles,name,' . $role->id,
-            'permission' => 'required',
+
         ]);
 
         try {

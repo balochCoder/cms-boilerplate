@@ -125,52 +125,7 @@
 
                                         </table>
 
-                                        {{-- <table class="table table-bordered wrap">
-                                            <thead>
-                                                <tr>
-                                                    <th>Permissions: </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="mb-3">
-                                                          
-                                                            <select class="select2 form-control select2-multiple"
-                                                                multiple="multiple" data-placeholder="Choose ..."
-                                                                name="permission[]">
-                                                                <optgroup label="Users">
-                                                                    @foreach ($permissions as $key => $permission)
-                                                                        @if (Str::startsWith($permission->name, 'users'))
-                                                                            <option value="{{ $permission->name }}"
-                                                                                {{ $role->hasPermission($permission->id) ? 'selected' : '' }}>
-                                                                                {{ $permission->name}}
-
-                                                                            </option>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </optgroup>
-                                                                <optgroup label="Roles">
-                                                                    @foreach ($permissions as $permission)
-                                                                        @if (Str::startsWith($permission->name, 'roles'))
-                                                                            <option value="{{ $permission->name }}"
-                                                                                {{ $role->hasPermission($permission->id) ? 'selected' : '' }}
-                                                                                >
-                                                                                {{ $permission->name}}
-                                                                            </option>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </optgroup>
-
-                                                            </select>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-
-                                            </tbody>
-                                        </table> --}}
+                                       
                                         <div class="col-sm-12 mb-5">
                                             <button type="submit" class="btn btn-primary">UPDATE ROLE</button>
                                         </div>

@@ -55,7 +55,7 @@
                     @endif
                     <div class="col-sm-12 message"></div>
                     <div class="col-sm-12">
-                        <form action="" class="needs-validation" method="POST" novalidate>
+                        <form action="{{route('users.store')}}" class="needs-validation" method="POST" novalidate>
                             @csrf
                             <div class="col-sm-12">
                                 <div class="card">
@@ -67,7 +67,7 @@
                                                     <label for="page" class="form-label">Roles</label>
                                                     <select class="form-select" data-placeholder="Choose Roles" id="role"
                                                         name="role" required focus>
-                                                        <option>Select Role....</option>
+                                                        <option value="">Select Role....</option>
                                                         @forelse ($roles as $role)
                                                             <option value="{{ $role }}">{{ Str::ucfirst($role) }}
                                                             </option>
@@ -82,21 +82,10 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="mb-3">
-                                                    <label for="first_name" class="form-label">First Name</label>
-                                                    <input type="text" class="form-control" name="first_name"
-                                                        id="first_name" placeholder="First Name"
-                                                        value="{{ old('first_name') }}" required>
-                                                    <div class="invalid-feedback">
-                                                        Please enter valid first name.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-                                                    <label for="last_name" class="form-label">Last Name</label>
-                                                    <input type="text" class="form-control" name="last_name"
-                                                        id="last_name" placeholder="Last Name"
-                                                        value="{{ old('last_name') }}" required>
+                                                    <label for="name" class="form-label">Full Name</label>
+                                                    <input type="text" class="form-control" name="name"
+                                                        id="name" placeholder="Last Name"
+                                                        value="{{ old('name') }}" required>
                                                     <div class="invalid-feedback">
                                                         Please enter valid last name.
                                                     </div>
