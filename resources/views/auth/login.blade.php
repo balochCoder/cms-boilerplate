@@ -3,6 +3,18 @@
     Login | CMS
 @endsection
 @section('content')
+@if (Session::has('message'))
+<div class="col-sm-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+        <i class="mdi mdi-check-all me-2"></i>
+
+        {{ __(Session::get('message')) }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"
+            aria-label="Close"></button>
+    </div>
+</div>
+@endif
     <div class="card overflow-hidden">
         <div class="bg-primary bg-soft">
             <div class="row">
@@ -36,18 +48,19 @@
                 </a>
             </div>
             <div class="p-2">
+
                 <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email"
-                            class="form-control @error('email') is-invalid @enderror {{ Session::has('message') ? 'is-invalid' : '' }}"
+                            class="form-control @error('email') is-invalid @enderror {{ Session::has('error') ? 'is-invalid' : '' }}"
                             id="email" name="email" placeholder="Enter email" value="{{ old('email') }}" required
                             autocomplete="email" autofocus>
 
-                        @if (Session::has('message'))
+                        @if (Session::has('error'))
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ Session::get('message') }}</strong>
+                                <strong>{{ Session::get('error') }}</strong>
                             </span>
                         @endif
                         @error('email')
@@ -101,8 +114,8 @@
     <div class="mt-5 text-center">
 
         <div>
-            <p>Don't have an account ? <a href="{{ route('register') }}" class="fw-medium text-primary">
-                    Signup now </a> </p>
+            <p>Don't have an account ? <a href="{{ route('register') }}" class="fw-medium text-primary">Signup now </a>
+            </p>
         </div>
     </div>
 @endsection

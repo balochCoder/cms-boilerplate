@@ -16,7 +16,7 @@
                         </a>
                     </li>
 
-                   
+
                         <li>
                             <a href="javascript: void(0);" class="has-arrow waves-effect">
                                 <i class="bx bx-layout"></i>
@@ -34,12 +34,12 @@
                                     <a href="javascript: void(0);" class="has-arrow" key="t-level-1-2">Users</a>
                                     <ul class="sub-menu" aria-expanded="true">
                                         <li><a href="{{route('users.index')}}" key="t-level-2-1">All Users</a></li>
-                                        <li><a href="#" key="t-level-2-2">Add User</a></li>
+                                        <li><a href="{{route('users.create')}}" key="t-level-2-2">Add User</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
-                 
+
 
 
 

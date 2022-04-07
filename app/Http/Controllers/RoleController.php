@@ -17,10 +17,10 @@ class RoleController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:roles-add|roles-edit|role-view|roles-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:roles-add', ['only' => ['create','store']]);
-         $this->middleware('permission:roles-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:roles-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:roles-add|roles-edit|role-view|roles-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:roles-add', ['only' => ['create', 'store']]);
+        $this->middleware('permission:roles-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:roles-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -30,7 +30,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $roles = Role::select('*');
+            $roles = Role::all();
             return DataTables::of($roles)
                 ->addIndexColumn()
                 ->addColumn('name', function ($row) {
@@ -41,7 +41,7 @@ class RoleController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="' . route('roles.edit', $row->id) . '"><i title="Edit" class="fas fa-edit font-size-18"></i></a>';
-                    $btn .= ' <a href="javascript:void(0);" class="text-danger remove" data-id="' . $row->id . '"><input type="hidden" value="'.$row->id.'"/><i title="Delete" class="fas fa-trash-alt font-size-18"></i></a>';
+                    $btn .= ' <a href="javascript:void(0);" class="text-danger remove" data-id="' . $row->id . '"><input type="hidden" value="' . $row->id . '"/><i title="Delete" class="fas fa-trash-alt font-size-18"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['name', 'action', 'created_at'])
@@ -77,7 +77,7 @@ class RoleController extends Controller
         ]);
 
         try {
-            $role = Role::create(['name' => $request->input('name')]);
+            $role = Role::create(['name' => Str::lower($request->input('name'))]);
             $role->syncPermissions($request->input('permission'));
 
             $data['type'] = "success";
@@ -117,7 +117,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $permissions = Permission::all();
-        return view('backend.admin.roles.edit', compact(['permissions','role']));
+        return view('backend.admin.roles.edit', compact(['permissions', 'role']));
     }
 
     /**
@@ -130,23 +130,23 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
 
-       
+
         $this->validate($request, [
-            'name' => 'required|unique:roles,name,'.$role->id,
+            'name' => 'required|unique:roles,name,' . $role->id,
             'permission' => 'required',
         ]);
-       
+
         try {
-           $role->update([
-               'name'=>$request->name
-           ]);
+            $role->update([
+                'name' => $request->name
+            ]);
 
-           $role->syncPermissions($request->input('permission'));
-           $data['type'] = "success";
-           $data['message'] = "Role Updated Successfuly!.";
-           $data['icon'] = 'mdi mdi-check-all';
+            $role->syncPermissions($request->input('permission'));
+            $data['type'] = "success";
+            $data['message'] = "Role Updated Successfuly!.";
+            $data['icon'] = 'mdi mdi-check-all';
 
-           return redirect()->route('roles.index')->with($data);
+            return redirect()->route('roles.index')->with($data);
         } catch (Exception $e) {
             if (!($e instanceof QueryException)) {
                 app()->make(\App\Exceptions\Handler::class)->report($e); // Report the exception if you don't know what actually caused it
@@ -166,7 +166,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        
+
         try {
             $role->delete();
             $data['type'] = "success";
@@ -176,6 +176,11 @@ class RoleController extends Controller
             echo json_encode($data);
         } catch (\Throwable $th) {
             //throw $th;
+            $data['type'] = "danger";
+            $data['message'] = "Failed to Remove Role, please try again.";
+            $data['icon'] = 'mdi-block-helper';
+
+            echo json_encode($data);
         }
     }
 }

@@ -46,7 +46,7 @@ class LoginController extends Controller
         ]);
        $authenticate = auth()->attempt($request->only('email','password'),$request->filled('remember'));
        if (!$authenticate){
-           return back()->with('message',"Invalid user credentials");
+           return back()->with('error',"Invalid user credentials");
        }
 
        return redirect()->route('home');

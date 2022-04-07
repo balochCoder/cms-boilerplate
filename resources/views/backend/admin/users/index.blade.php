@@ -56,6 +56,7 @@
                                             <th>Email</th>
                                             <th>Role</th>
                                             <th>Created At</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,6 +93,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal --> --}}
 
+
 @endsection
 
 @section('js')
@@ -123,55 +125,56 @@
                         data: 'created_at',
                         name: 'created_at'
                     },
-                    // {
-                    //     data: 'action',
-                    //     name: 'action',
-                    //     orderable: false,
-                    //     searchable: false
-                    // }
+
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    }
                 ],
                 "order": [
                     [0, "asc"]
                 ],
             });
         });
-        // $(document).on("click", ".remove", function(event) {
-        //     var flag = confirm('Are You Sure want to Remove Role?');
-        //     if (flag) {
-        //         var url = '{{ route('roles.destroy', ':id') }}'
-        //         var id = $(this).data('id');
-        //         url = url.replace(':id', id);
-        //         console.log(id)
-        //         $.ajaxSetup({
-        //             headers: {
-        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //             }
-        //         });
-        //         $.ajax({
-        //             url: url,
-        //             type: 'DELETE',
-        //             data: {
-        //                 id: id
-        //             },
-        //             success: function(data) {
-        //                 let result = JSON.parse(data);
-        //                 $('.message').html('<div class="alert alert-' + result.type +
-        //                     ' alert-dismissible fade show" role="alert"><i class="mdi ' + result
-        //                     .icon +
-        //                     ' me-2"></i>' + result.message +
-        //                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>'
-        //                 );
-        //                 // $('.datatable').DataTable().ajax.reload();
-        //                 let table = $('.data-table').DataTable();
-        //                 table.row('#' + id).remove().draw(false);
-        //             },
-        //             error: function(data) {
-        //                 console.log(data);
-        //             }
-        //         });
-        //     } else {
-        //         event.preventDefault();
-        //     }
-        // });
+        $(document).on("click", ".remove", function(event) {
+            var flag = confirm('Are You Sure want to Remove User?');
+            if (flag) {
+                var url = '{{ route('users.destroy', ':id') }}'
+                var id = $(this).data('id');
+                url = url.replace(':id', id);
+                console.log(id)
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        let result = JSON.parse(data);
+                        $('.message').html('<div class="alert alert-' + result.type +
+                            ' alert-dismissible fade show" role="alert"><i class="mdi ' + result
+                            .icon +
+                            ' me-2"></i>' + result.message +
+                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>'
+                        );
+                        // $('.datatable').DataTable().ajax.reload();
+                        let table = $('.data-table').DataTable();
+                        table.row('#' + id).remove().draw(false);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            } else {
+                event.preventDefault();
+            }
+        });
     </script>
 @endsection
