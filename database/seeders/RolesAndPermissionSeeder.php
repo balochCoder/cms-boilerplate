@@ -26,6 +26,7 @@ class RolesAndPermissionSeeder extends Seeder
 
             'users-add', 'users-edit', 'users-view', 'users-delete',
             'roles-add', 'roles-edit', 'roles-view', 'roles-delete',
+            'websettings-add', 'websettings-edit', 'websettings-view', 'websettings-delete',
 
         ];
         $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {
