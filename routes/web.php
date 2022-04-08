@@ -29,5 +29,6 @@ Route::group(['middleware'=>['auth']],function (){
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 
-    Route::get('/web/settings', [WebSettingController::class, 'index'])->name('web.settings');
+    Route::get('/web/settings', [WebSettingController::class, 'index'])->name('websettings.index');
+    Route::post('/web/update-contact', [WebSettingController::class, 'updateContact'])->name('websettings.updateContact');
 });

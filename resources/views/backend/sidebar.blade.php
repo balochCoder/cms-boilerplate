@@ -65,7 +65,7 @@
 
                     @canany(['websettings-add', 'websettings-edit', 'websettings-view', 'websettings-delete'])
                         <li>
-                            <a href="{{ route('web.settings') }}" class=" waves-effect">
+                            <a href="{{ route('websettings.index') }}" class=" waves-effect">
                                 <i class="bx bx-globe"></i>
                                 <span key="t-layouts">Web Settings</span>
                             </a>
