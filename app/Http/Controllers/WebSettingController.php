@@ -102,4 +102,61 @@ class WebSettingController extends Controller
             }
         }
     }
+
+    public function updateSocial(Request $request)
+    {
+
+
+        $info['facebook'] = $request->facebook;
+        $info['instagram'] = $request->instagram;
+        $info['twitter'] = $request->twitter;
+        $info['linkedin'] = $request->linkedin;
+        $info['google'] = $request->google;
+
+        $socialLinks = WebSetting::where('key', 'socialLinks')->first();
+
+        if (!$socialLinks) {
+            try {
+                if (Cache::has('webSetting')) {
+                    Cache::forget('webSetting');
+                }
+
+
+                WebSetting::create([
+                    'key' => 'socialLinks',
+                    'data' => json_encode($info)
+                ]);
+
+                $data['type'] = "success";
+                $data['message'] = "Setting Added Successfuly!.";
+                $data['icon'] = 'mdi-check-all';
+                return redirect()->back()->with($data);
+            } catch (\Throwable $th) {
+                $data['type'] = "danger";
+                $data['message'] = "Failed to Add Setting, please try again.";
+                $data['icon'] = 'mdi-block-helper';
+                return redirect()->back()->with($data);
+            }
+        } else {
+            try {
+                WebSetting::where('key', 'socialLinks')->update([
+                    'data' => json_encode($info)
+                ]);
+
+                if (Cache::has('webSetting')) {
+                    Cache::forget('webSetting');
+                }
+
+                $data['type'] = "success";
+                $data['message'] = "Setting Updated Successfuly!.";
+                $data['icon'] = 'mdi-check-all';
+                return redirect()->back()->with($data);
+            } catch (\Throwable $th) {
+                $data['type'] = "danger";
+                $data['message'] = "Failed to Update Setting, please try again.";
+                $data['icon'] = 'mdi-block-helper';
+                return redirect()->back()->with($data);
+            }
+        }
+    }
 }

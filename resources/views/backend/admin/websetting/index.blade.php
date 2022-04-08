@@ -132,7 +132,7 @@
                                     </div>
                                     <div class="tab-pane" id="social" role="tabpanel">
                                         <div class="col-sm-9">
-                                            <form class="needs-validation" method="POST" action=""
+                                            <form class="needs-validation" method="POST" action="{{route('websettings.updateSocial')}}"
                                                 enctype="multipart/form-data" novalidate>
                                                 @csrf
                                                 <div class="row">
