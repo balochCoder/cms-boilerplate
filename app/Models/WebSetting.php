@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class WebSetting extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['key','data'];
 }

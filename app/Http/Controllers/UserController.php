@@ -48,7 +48,7 @@ class UserController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     if (Auth::user()->id !== $row->id) {
-                        $btn='';
+                        $btn = '';
                         if (Auth::user()->hasPermissionTo('users-edit')) {
                             $btn .= '<a href="' . route('users.edit', $row->id) . '"><i title="Edit" class="fas fa-edit font-size-18"></i></a>';
                         }

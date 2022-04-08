@@ -49,7 +49,28 @@
                             </li>
                         @endcanany
                     @endcanany
+                    <li class="menu-title" key="t-menu">CMS</li>
+                    <li>
+                        <a href="javascript: void(0);" class=" waves-effect">
+                            <i class="bx bxs-user-rectangle"></i>
+                            <span key="t-layouts">Testimonials</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class=" waves-effect">
+                            <i class="bx bxs-comment-detail"></i>
+                            <span key="t-layouts">FAQ's</span>
+                        </a>
+                    </li>
 
+                    @canany(['websettings-add', 'websettings-edit', 'websettings-view', 'websettings-delete'])
+                        <li>
+                            <a href="{{ route('web.settings') }}" class=" waves-effect">
+                                <i class="bx bx-globe"></i>
+                                <span key="t-layouts">Web Settings</span>
+                            </a>
+                        </li>
+                    @endcanany
 
 
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\WebSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -34,6 +35,7 @@ class RolesAndPermissionSeeder extends Seeder
         });
 
         Permission::insert($permissions->toArray());
+       
 
         // create roles and assign permissions
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());
