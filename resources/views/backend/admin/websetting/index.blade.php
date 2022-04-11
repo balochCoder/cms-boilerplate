@@ -8,6 +8,7 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
+
                 <!-- start page title -->
                 <div class="row">
                     <div class="col-12">
@@ -203,7 +204,7 @@
                                     </div>
                                     <div class="tab-pane" id="logo" role="tabpanel">
                                         <div class="col-sm-12">
-                                            <form class="needs-validation" method="POST" action=""
+                                            <form action="{{route('websettings.updateLogoFavicon')}}" class="needs-validation" method="POST"
                                                 enctype="multipart/form-data" novalidate>
                                                 @csrf
                                                 <div class="row">
@@ -232,14 +233,14 @@
 
                                                 @canany(['websettings-add', 'websettings-edit'])
                                                 <div>
-                                                    <button class="btn btn-primary" name="updateLogo" value="true"
+                                                    <button class="btn btn-primary"
                                                         type="submit">UPDATE LOGO</button>
                                                 </div>
                                                 @endcanany
 
                                             </form>
                                             <hr />
-                                            <form class="needs-validation" method="POST" action=""
+                                            <form action="{{route('websettings.updateLogoFavicon')}}" class="needs-validation" method="POST"
                                                 enctype="multipart/form-data" novalidate>
                                                 @csrf
                                                 <div class="row">
@@ -267,7 +268,7 @@
 
                                                 @canany(['websettings-add', 'websettings-edit'])
                                                 <div>
-                                                    <button class="btn btn-primary" name="updateFavicon" value="true"
+                                                    <button class="btn btn-primary"
                                                         type="submit">UPDATE FAVICON</button>
                                                 </div>
                                                 @endcanany

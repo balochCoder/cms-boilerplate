@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\WebSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class WebSettingController extends Controller
 {
@@ -156,6 +157,94 @@ class WebSettingController extends Controller
                 $data['message'] = "Failed to Update Setting, please try again.";
                 $data['icon'] = 'mdi-block-helper';
                 return redirect()->back()->with($data);
+            }
+        }
+    }
+
+    public function logoFavicon(Request $request)
+    {
+        if (isset($request->logo)) {
+            return $this->addLogoFavicon('logo', $request);
+        } else if (isset($request->favicon)) {
+            return $this->addLogoFavicon('favicon', $request);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function addLogoFavicon($userInput, $request)
+    {
+        $request->validate([
+            $userInput => 'required|mimes:jpeg,jpg,bmp,png,ico|max:1024'
+        ], [$userInput . '.required' => 'Please upload valid image for ' . $userInput]);
+
+        $logoOrFavicon = WebSetting::where('key', $userInput)->first();
+        $logoOrFaviconImage = $request->file($userInput);
+
+        if (!$logoOrFavicon) {
+            $logoOrFavicon->update([
+                'key' => $userInput
+            ]);
+            if ($logoOrFaviconImage->move('assets/images/', $logoOrFaviconImage->getClientOriginalName())) {
+                $logoOrFavicon->update([
+                    'data' => json_encode([$userInput => $logoOrFaviconImage->getClientOriginalName()])
+                ]);
+
+
+
+                try {
+                    if (Cache::has('webSetting')) {
+                        Cache::forget('webSetting');
+                    }
+
+                    $data['type'] = "success";
+                    $data['message'] = Str::ucfirst($userInput) . " Added Successfuly!.";
+                    $data['icon'] = 'mdi-check-all';
+                } catch (\Throwable $th) {
+                    $data['type'] = "danger";
+                    $data['message'] = "Failed to Add " . Str::ucfirst($userInput) . ", please try again.";
+                    $data['icon'] = 'mdi-block-helper';
+                }
+
+
+                return redirect()->back()->with($data);
+            } else {
+                $data['type'] = "danger";
+                $data['message'] = "Failed to upload image, please try again.";
+                $data['icon'] = 'mdi-block-helper';
+
+                return redirect()->back()->with($data);
+            }
+        } else {
+
+            if ($logoOrFaviconImage->move('assets/images/', $logoOrFaviconImage->getClientOriginalName())) {
+
+
+                try {
+                    WebSetting::where('key', $userInput)->update([
+                        'data' => json_encode([$userInput => $logoOrFaviconImage->getClientOriginalName()])
+                    ]);
+                    if (Cache::has('webSetting')) {
+                        Cache::forget('webSetting');
+                    }
+
+                    $data['type'] = "success";
+                    $data['message'] = Str::ucfirst($userInput) . " Updated Successfuly!.";
+                    $data['icon'] = 'mdi-check-all';
+                } catch (\Throwable $th) {
+                    $data['type'] = "danger";
+                    $data['message'] = "Failed to Update " . Str::ucfirst($userInput) . ", please try again.";
+                    $data['icon'] = 'mdi-block-helper';
+                }
+
+
+                return redirect()->back()->with($data);
+            } else {
+                $data['type'] = "danger";
+                $data['message'] = "Failed to upload image, please try again.";
+                $data['icon'] = 'mdi-block-helper';
+
+                return redirect()->route('web.settings')->with($data);
             }
         }
     }

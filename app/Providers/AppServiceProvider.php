@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\WebSetting;
 use Illuminate\Support\ServiceProvider;
+
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $favicon = WebSetting::where('key', 'favicon')->first();
+        $logo = WebSetting::where('key', 'logo')->first();
+
+
+        View::share(
+            [
+                'favicon' => json_decode($favicon->data),
+                'logo'=>json_decode($logo->data)
+            ]
+        );
     }
 }

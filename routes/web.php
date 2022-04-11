@@ -32,4 +32,5 @@ Route::group(['middleware'=>['auth']],function (){
     Route::get('/web/settings', [WebSettingController::class, 'index'])->name('websettings.index');
     Route::post('/web/update-contact', [WebSettingController::class, 'updateContact'])->name('websettings.updateContact');
     Route::post('/web/update-social', [WebSettingController::class, 'updateSocial'])->name('websettings.updateSocial');
+    Route::post('/web/logo-favicon', [WebSettingController::class, 'logoFavicon'])->name('websettings.updateLogoFavicon');
 });
