@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         View::share(
             [
                 'favicon' => json_decode($favicon->data),
-                'logo'=>json_decode($logo->data)
+                'logo' => json_decode($logo->data)
             ]
         );
     }

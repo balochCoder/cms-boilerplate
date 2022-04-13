@@ -191,7 +191,7 @@ class UserController extends Controller
             $data['message'] = "Failed to Update User, please try again.";
             $data['icon'] = 'mdi-block-helper';
 
-            return redirect()->route('users.index')->withInput()->with($data);
+            return redirect()->back()->withInput()->with($data);
         }
     }
 

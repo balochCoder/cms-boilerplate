@@ -49,30 +49,37 @@
                             </li>
                         @endcanany
                     @endcanany
-                    <li class="menu-title" key="t-menu">CMS</li>
-                    <li>
-                        <a href="javascript: void(0);" class=" waves-effect">
-                            <i class="bx bxs-user-rectangle"></i>
-                            <span key="t-layouts">Testimonials</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class=" waves-effect">
-                            <i class="bx bxs-comment-detail"></i>
-                            <span key="t-layouts">FAQ's</span>
-                        </a>
-                    </li>
 
-                    @canany(['websettings-add', 'websettings-edit', 'websettings-view', 'websettings-delete'])
-                        <li>
-                            <a href="{{ route('websettings.index') }}" class=" waves-effect">
-                                <i class="bx bx-globe"></i>
-                                <span key="t-layouts">Web Settings</span>
-                            </a>
-                        </li>
+                    @canany(['faqs-add', 'faqs-edit', 'faqs-view', 'faqs-delete'])
+                        <li class="menu-title" key="t-menu">CMS</li>
+
+                        @canany(['faqs-add', 'faqs-edit', 'faqs-view', 'faqs-delete', 'websettings-add', 'websettings-edit',
+                            'websettings-view', 'websettings-delete'])
+                            <li>
+                                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                                    <i class="bx bxs-comment-detail"></i>
+                                    <span key="t-layouts">FAQ's</span>
+                                </a>
+                                <ul class="sub-menu" aria-expanded="true">
+                                    <li><a href="{{route('faqs.index')}}" key="t-level-2-1">All FAQ's</a></li>
+                                    @can('faqs-add')
+                                        <li><a href="{{route('faqs.create')}}" key="t-level-2-2">Add FAQ</a></li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcanany
+
+
+                        @canany(['websettings-add', 'websettings-edit', 'websettings-view', 'websettings-delete'])
+                            <li>
+                                <a href="{{ route('websettings.index') }}" class=" waves-effect">
+                                    <i class="bx bx-globe"></i>
+                                    <span key="t-layouts">Web Settings</span>
+                                </a>
+                            </li>
+                        @endcanany
+
                     @endcanany
-
-
 
                 </ul>
             </div>

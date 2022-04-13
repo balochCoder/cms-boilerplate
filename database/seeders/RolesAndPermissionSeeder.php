@@ -27,6 +27,7 @@ class RolesAndPermissionSeeder extends Seeder
 
             'users-add', 'users-edit', 'users-view', 'users-delete',
             'roles-add', 'roles-edit', 'roles-view', 'roles-delete',
+            'faqs-add', 'faqs-edit', 'faqs-view', 'faqs-delete',
             'websettings-add', 'websettings-edit', 'websettings-view', 'websettings-delete',
 
         ];
@@ -35,7 +36,7 @@ class RolesAndPermissionSeeder extends Seeder
         });
 
         Permission::insert($permissions->toArray());
-       
+
 
         // create roles and assign permissions
         Role::create(['name' => 'admin'])->givePermissionTo(Permission::all());

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebSettingController;
@@ -25,12 +26,19 @@ Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware'=>['auth']],function (){
+Route::group(['middleware' => ['auth']], function () {
+    // Roles
     Route::resource('roles', RoleController::class);
+
+    // Users
     Route::resource('users', UserController::class);
 
+    // Web Settings
     Route::get('/web/settings', [WebSettingController::class, 'index'])->name('websettings.index');
     Route::post('/web/update-contact', [WebSettingController::class, 'updateContact'])->name('websettings.updateContact');
     Route::post('/web/update-social', [WebSettingController::class, 'updateSocial'])->name('websettings.updateSocial');
     Route::post('/web/logo-favicon', [WebSettingController::class, 'logoFavicon'])->name('websettings.updateLogoFavicon');
+
+    // FAQs
+    Route::resource('/faqs', FaqController::class);
 });

@@ -20,7 +20,6 @@ class WebSettingSeeder extends Seeder
         $dataFavicon = ["favicon"=>"favicon.png"];
         $dataContact = ["phone"=>"(323) 833 - 8565","email"=>"info@cms.com","address"=>"P.O. Box # 9768 Silicon Valley Califonia"];
         $dataSocialLinks = ["facebook"=>null,"instagaram"=>null,"twitter"=>null,"linkedin"=>null,"google"=>null];
-        $dataSmtp = ["host"=>"smtp.gmail.com","port"=>"587","username"=>"ethanpatrik175@gmail.com","password"=>"eyJpdiI6IkZUZ2dWSnYxYUJkQVhGQ0tBN3RUVHc9PSIsInZhbHVlIjoiakZ1K25CZHBJMHovV3poNjJPYVNCejltaTdJZmxCMWU3bHVtZUNkbHhQVT0iLCJtYWMiOiJhN2RjYWIxOWFhMjE1YjY4YmI0MDMzMGYyZTMyMjc3ZDMzNjFhZGI3YzM1YjEzZTZkYzJkYTgxZDE2N2VhMTZiIiwidGFnIjoiIn0=","encryption"=>"tls","from_name"=>"CMS"];
 
 
         WebSetting::create([
@@ -43,11 +42,6 @@ class WebSettingSeeder extends Seeder
         WebSetting::create([
             'key'=>'socialLinks',
             'data'=>json_encode($dataSocialLinks)
-        ]);
-
-        WebSetting::create([
-            'key'=>'smtp',
-            'data'=>json_encode($dataSmtp)
         ]);
     }
 

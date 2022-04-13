@@ -1,6 +1,6 @@
 @extends('layouts.backend.master')
 @section('title')
-    {{ __('All Roles') }}
+    {{ __("All FAQ's") }}
 @endsection
 @section('css')
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -11,18 +11,17 @@
     <div class="main-content">
         <div class="page-content">
             <div class="container-fluid">
-                <!-- start page title -->
 
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0 font-size-18">{{ __('All Roles') }}</h4>
+                            <h4 class="mb-sm-0 font-size-18">{{ __("All FAQ's") }}</h4>
 
                             <div class="page-title-right">
                                 <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">{{ __('Roles') }}</a>
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">{{ __('FAQS') }}</a>
                                     </li>
-                                    <li class="breadcrumb-item active">{{ __('All Roles') }}</li>
+                                    <li class="breadcrumb-item active">{{ __("All FAQ's") }}</li>
                                 </ol>
                             </div>
                         </div>
@@ -53,7 +52,9 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Name</th>
+                                            <th>Page</th>
+                                            <th>Question</th>
+                                            <th>Answer</th>
                                             <th>Created At</th>
                                             <th>Actions</th>
                                         </tr>
@@ -81,14 +82,22 @@
             $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('roles.index') }}",
+                ajax: "{{ route('faqs.index') }}",
                 columns: [{
                         data: 'id',
                         name: 'id'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'page',
+                        name: 'page'
+                    },
+                    {
+                        data: 'question',
+                        name: 'question'
+                    },
+                    {
+                        data: 'answer',
+                        name: 'answer'
                     },
                     {
                         data: 'created_at',
@@ -107,9 +116,9 @@
             });
         });
         $(document).on("click", ".remove", function(event) {
-            var flag = confirm('Are You Sure want to Remove Role?');
+            var flag = confirm('Are You Sure want to Remove FAQ?');
             if (flag) {
-                var url = '{{ route('roles.destroy', ':id') }}'
+                var url = '{{ route('faqs.destroy', ':id') }}'
                 var id = $(this).data('id');
                 url = url.replace(':id', id);
                 console.log(id)
